@@ -3,7 +3,7 @@ from attention import MultiHeadAttention
 
 class Encoder(nn.Module):
 
-    def __init__(self, d_model, n_heads, dropout, ratio = 4):
+    def __init__(self, d_model, n_heads, dropout = 0.1, ratio = 4):
         super(Encoder, self).__init__()
         self.d_model = d_model
         self.n_heads = n_heads
