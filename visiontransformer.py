@@ -23,10 +23,7 @@ class VisionTransformer(nn.Module):
         self.positional_encoding = PositionalEncoding(self.d_model, self.max_seq_len)
         self.encoder = nn.Sequential(*[Encoder(self.d_model, self.n_heads) for _ in range(n_layers)])
 
-        self.classifier = nn.Sequential(
-            nn.Linear(self.d_model, self.n_classes),
-            nn.Softmax(dim =1)
-        )
+        self.classifier = nn.Linear(self.d_model, self.n_classes)
     
     def forward(self, images):
         x = self.patch_embedding(images)
