@@ -36,7 +36,10 @@ class PatchEmbedding(nn.Module):
         # W: Image Width
         # P_col: Patch Column
         # P_row: Patch Row
-        x = self.linear_projection = nn.Conv2d(n_channels, d_model, kernel_size=patch_size, stride=patch_size) # returns B, d_model, p_col, p_row
+        self.linear_projection = nn.Conv2d(self.n_channels, self.d_model, kernel_size=self.patch_size, stride=self.patch_size) # returns B, d_model, p_col, p_row
+        
+    def forward(self, x):
+        x = self.linear_projection(x)
         x = x.flatten(2) # returns B, d_model, P (P is p_col*p_row)
         x = x.transpose(1, 2) # returns, B, P, d_model (accepted by transfprmer)
 
