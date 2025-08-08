@@ -15,7 +15,7 @@ n_channels = 1
 n_heads = 4
 n_layers = 3
 batch_size = 128
-epochs = 15
+epochs = 10
 alpha = 0.001
 
 model = VisionTransformer(
@@ -59,13 +59,15 @@ for epoch in range(epochs):
     
     print(f"Epoch: {epoch+1}, Loss: {train_loss:.3f}")
 
-model.eval()
-correct = 0
-with torch.no_grad():
-    for img, label in test_loader:
-        img, label = img.to(device), label.to(device)
-        output = model(img)
-        _, predicted = torch.max(output, 1)
-        correct += (predicted == label).sum().item()
+# model.eval()
+# correct = 0
+# with torch.no_grad():
+#     for img, label in test_loader:
+#         img, label = img.to(device), label.to(device)
+#         output = model(img)
+#         _, predicted = torch.max(output, 1)
+#         correct += (predicted == label).sum().item()
 
-print(f"Test Accuracy: {100 * correct / len(test_data):.2f}%")
+# print(f"Test Accuracy: {100 * correct / len(test_data):.2f}%")
+
+torch.save(model.state_dict(), "ViTr_MNIST.pth")
